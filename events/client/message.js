@@ -9,7 +9,6 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-const path = require('path');
 
 module.exports = {
     name: 'messageCreate',
