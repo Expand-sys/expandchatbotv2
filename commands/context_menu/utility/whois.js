@@ -1,6 +1,6 @@
-const { CommandInteraction, ApplicationCommandType, EmbedBuilder } = require('discord.js');
-const { sendResponse } = require('../../../utils/utils');
-const path = require('path');
+const { CommandInteraction, ApplicationCommandType, EmbedBuilder } = require ('discord.js');
+const { sendResponse } = require ('../../../utils/utils');
+const path = require ('path');
 
 module.exports = {
     name: `Whois`,
