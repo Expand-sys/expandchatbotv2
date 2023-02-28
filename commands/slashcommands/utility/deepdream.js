@@ -29,7 +29,7 @@ module.exports = {
         let imageurl = interaction.options.getAttachment("image").url
         interaction.deferReply()
     
-        var resp = await deepai.callStandardApi("deep-dream", {
+        var resp = await deepai.callStandardApi("deepdream", {
                 image: `${imageurl}`,
         })
 
