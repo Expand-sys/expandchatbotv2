@@ -21,10 +21,10 @@ module.exports = {
           question.shift()
           question = question.join(" ")
           
-          response = await openai.createCompletion({
-            model: "text-curie-001",
+          let response = await openai.createChatCompletion({
+            model: "gpt-3.5-turbo",
             
-            prompt: `you are a very silly salamander please respond to the following:\n ${question}`,
+            messages: [{"role": "user", "content":`${question}`}],
             temperature: 0.9,
             max_tokens: 500,
             top_p: 0.3,
@@ -33,7 +33,7 @@ module.exports = {
           }
           )
           console.log(response.data)
-          message.reply(response.data.choices[0].text)
+          await message.reply(response.data.choices[0].message)
           
           
         }
