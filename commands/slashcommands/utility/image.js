@@ -35,11 +35,7 @@ module.exports = {
               });
               image_url = response.data.data[0].url;
               error = response
-            
-        } catch(e){
-            error = e.response.data.error.message
-        }
-        let embed = new Embed({
+            let embed = new Embed({
                 "type": "rich",
                 "title": `Prompt: ${interaction.options.getString("prompt")}`,
                 "description": "",
@@ -51,6 +47,11 @@ module.exports = {
                 },
 
             })
-        sendResponse(interaction, ``, [embed])
+            sendResponse(interaction, ``, [embed])
+        } catch(e){
+            error = e.response.data.error.message
+            sendResponse(interaction, e.response.data.error.message)
+        }
+        
     }
 }
