@@ -26,7 +26,9 @@ module.exports = {
     async execute(interaction) {
         let image_url = null
         let error = null
-        interaction.deferReply()
+        console.log("rice")
+        await interaction.deferReply()
+        console.log("beans")
         try{
             const response = await openai.createImage({
                 prompt: `${interaction.options.getString("prompt")}`,
@@ -35,6 +37,7 @@ module.exports = {
               });
               image_url = response.data.data[0].url;
               error = response
+              console.log(error)
             let embed = new Embed({
                 "type": "rich",
                 "title": `Prompt: ${interaction.options.getString("prompt")}`,

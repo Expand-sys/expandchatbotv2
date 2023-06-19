@@ -27,7 +27,7 @@ module.exports = {
     async execute(interaction) {
         let image_url = null
         let imageurl = interaction.options.getAttachment("image").url
-        interaction.deferReply()
+        await interaction.deferReply()
     
         var resp = await deepai.callStandardApi("deepdream", {
                 image: `${imageurl}`,

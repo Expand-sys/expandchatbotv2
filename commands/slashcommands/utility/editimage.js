@@ -34,7 +34,7 @@ module.exports = {
         let imageurl = interaction.options.getAttachment("image").url
         console.log(interaction.options.getString("prompt"))
         let prompt = interaction.options.getString("prompt")
-        interaction.deferReply()
+        await interaction.deferReply()
     
         var resp = await deepai.callStandardApi("image-editor", {
                 image: `${imageurl}`,

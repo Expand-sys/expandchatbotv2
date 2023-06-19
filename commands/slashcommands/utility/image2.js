@@ -29,7 +29,7 @@ module.exports = {
     async execute(interaction) {
         const imageParams = new Generation.ImageParameters();
         let sfbuffer
-        interaction.deferReply()
+        await interaction.deferReply()
         imageParams.setWidth(512);
         imageParams.setHeight(512);
         imageParams.addSeed(11223344);
