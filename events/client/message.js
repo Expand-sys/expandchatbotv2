@@ -1,42 +1,33 @@
-const cronjob = require('cron').CronJob;
 const fs = require('fs');
 const { promisify } = require('util');
+const { Ollama } = require('ollama')
 const { glob } = require('glob');
 const PG = promisify(glob);
-const { Configuration, OpenAIApi } = require("openai");
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-const openai = new OpenAIApi(configuration);
 
+
+const ollama = new Ollama({host: 'http://localhost:11434'})
 
 module.exports = {
     name: 'messageCreate',
     once: false,
     async execute(message, client, Discord) {
-      if (message.mentions.members.first()){
-        if (message.mentions.members.first().user.id == 216882708012466176) {
-          console.log(message)
-          let question = message.content.split(" ")
-          question.shift()
-          question = question.join(" ")
-          
-          let response = await openai.createChatCompletion({
-            model: "gpt-3.5-turbo",
+      console.log(message)
+      let random = Math.random()*150
+      if (message.content.includes("?") && message.member.id != "216882708012466176"){
+        let response = await ollama.chat({
+          model: 'llama2',
+          messages: [
+            { role: "system", content: "You are a know it all bot who doesnt have a clue about social ettiquite please respond to users messages in a way that will make them hate you and do not offer help in any way"},
+            { role: 'user', content: message.content},
             
-            messages: [{"role": "user", "content":`${question}`}],
-            temperature: 0.9,
-            max_tokens: 500,
-            top_p: 0.3,
-            frequency_penalty: 0.9,
-            presence_penalty: 0.0
+          ],
+          stream: false,
+          options: {
+            num_predict: 128
           }
-          )
-          console.log(response.data)
-          await message.reply(response.data.choices[0].message)
-          
-          
-        }
+        })
+        console.log(response)
+        await message.reply(response.message.content)
       }
         
     }
